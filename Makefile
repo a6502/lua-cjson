@@ -11,13 +11,15 @@
 ##                          multi-threaded application. Requries _pthreads_.
 
 ##### Build defaults #####
-LUA_VERSION =       5.1
+#LUA_VERSION =       5.1
+LUA_VERSION =       5.3
 TARGET =            cjson.so
 PREFIX =            /usr/local
 #CFLAGS =            -g -Wall -pedantic -fno-inline
-CFLAGS =            -O3 -Wall -pedantic -DNDEBUG
+#CFLAGS =            -O3 -Wall -pedantic -DNDEBUG
+FLAGS =             -g -O3 -Wall -pedantic
 CJSON_CFLAGS =      -fpic
-CJSON_LDFLAGS =     -shared
+CJSON_LDFLAGS =     -shared -Wl,-Bsymbolic
 LUA_INCLUDE_DIR =   $(PREFIX)/include
 LUA_CMODULE_DIR =   $(PREFIX)/lib/lua/$(LUA_VERSION)
 LUA_MODULE_DIR =    $(PREFIX)/share/lua/$(LUA_VERSION)
@@ -65,8 +67,8 @@ FPCONV_OBJS =       fpconv.o
 
 ## Compile built in number conversion to support multi-threaded
 ## applications (recommended)
-#CJSON_CFLAGS +=     -pthread -DMULTIPLE_THREADS
-#CJSON_LDFLAGS +=    -pthread
+CJSON_CFLAGS +=     -pthread -DMULTIPLE_THREADS
+CJSON_LDFLAGS +=    -ljemalloc -pthread
 
 ##### End customisable sections #####
 
